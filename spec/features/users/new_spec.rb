@@ -36,6 +36,19 @@ RSpec.describe 'User Registration Page', type: :feature do
       expect(User.count).to eq(0)
     end
 
+    it 'can only create a user if password is filled out' do
+      fill_in('Name', with: 'TestUser')
+      fill_in('Email', with: 'email@email.com')
+      fill_in('Password', with: '')
+      fill_in('user_password_confirm', with: '')
+
+      click_button 'Create New User'
+
+      expect(current_path).to eq('/register')
+      expect(page).to have_content('User was not created')
+      expect(User.count).to eq(0)
+    end
+
     it 'can only create a new user when the email is unique' do
       create(:user, name: 'River', email: 'river@gmail.com')
 
