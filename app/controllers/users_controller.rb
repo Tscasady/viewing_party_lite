@@ -20,6 +20,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def login
+  end
+
+  def login_user
+    user = User.find_by_email(params[:email])
+    if user.authenticate(params[:password])
+      redirect_to user_path(user)
+    else
+      redirect_to login_path
+      flash[:alert] = 'Email or password invalid.'
+    end
+  end
+
   private
 
   def permitted_params
