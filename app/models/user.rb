@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :invited_parties, through: :viewing_party_users, source: :viewing_party
 
   validates_presence_of :name, :password
+  validates_confirmation_of :password
   has_secure_password
   validates :email, uniqueness: true, presence: true
 
