@@ -6,9 +6,9 @@ RSpec.describe 'New Viewing Party Page' do
   before :each do
     @user = create(:user)
     @movie_id = 14
-    @user2 = User.create(name: 'River', email: 'river@example.com')
-    @user3 = User.create(name: 'Bodi', email: 'bodi@example.com')
-    @user4 = User.create(name: 'Dean', email: 'dean@example.com')
+    @user2 = create(:user, name: 'River', email: 'river@example.com')
+    @user3 = create(:user, name: 'Bodi', email: 'bodi@example.com')
+    @user4 = create(:user, name: 'Dean', email: 'dean@example.com')
     visit new_user_movie_viewing_party_path(@user.id, @movie_id)
   end
 
@@ -28,9 +28,6 @@ RSpec.describe 'New Viewing Party Page' do
 
   describe 'New viewing party form - happy path' do
     it 'has a form to create a viewing party' do
-      user1 = User.create(name: 'River', email: 'river@example.com')
-      user2 = User.create(name: 'Bodi', email: 'bodi@example.com')
-      user3 = User.create(name: 'Dean', email: 'dean@example.com')
 
       within('.new_viewing_party_form') do
         expect(page).to have_field('Movie Title', with: 'American Beauty', disabled: true)
@@ -52,9 +49,6 @@ RSpec.describe 'New Viewing Party Page' do
 
   describe 'New viewing party form - sad path' do
     it 'should not create a new viewing party if the form is not completely filled out' do
-      user1 = User.create(name: 'River', email: 'river@example.com')
-      user2 = User.create(name: 'Bodi', email: 'bodi@example.com')
-      user3 = User.create(name: 'Dean', email: 'dean@example.com')
 
       within('.new_viewing_party_form') do
         expect(page).to have_field('Movie Title', with: 'American Beauty', disabled: true)
