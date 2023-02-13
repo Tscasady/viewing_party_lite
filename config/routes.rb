@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   root to: 'welcome#index'
-
+  get '/login', to: 'users#login'
   get '/register', to: 'users#new'
 
   resources :users, except: [:new] do
