@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class MovieService
-  def initialize(movie_id = '')
-    @movie_id = movie_id
+  def initialize(url = '')
+    @url = url
   end
 
   def get_top_movies
@@ -43,14 +43,14 @@ class MovieService
   end
 
   def get_basic_movie_info
-    parse(service.get("/3/movie/#{@movie_id}"))
+    parse(service.get("/3/movie/#{@url}"))
   end
 
   def get_cast
-    parse(service.get("/3/movie/#{@movie_id}/credits"))
+    parse(service.get("/3/movie/#{@url}/credits"))
   end
 
   def get_reviews
-    parse(service.get("/3/movie/#{@movie_id}/reviews"))
+    parse(service.get("/3/movie/#{@url}/reviews"))
   end
 end

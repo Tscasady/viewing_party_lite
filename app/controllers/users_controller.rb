@@ -10,6 +10,12 @@ class UsersController < ApplicationController
   end
 
   def create
+    if (params[:user][:password] != params[:password_confirm])
+      redirect_to '/register'
+      flash[:alert] = "User was not created. Password should match confirmed password."
+      return
+    end
+
     user = User.new(permitted_params)
 
     if user.save
@@ -23,6 +29,6 @@ class UsersController < ApplicationController
   private
 
   def permitted_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:name, :email, :password)
   end
 end
