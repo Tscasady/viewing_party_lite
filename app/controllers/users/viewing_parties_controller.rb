@@ -2,12 +2,13 @@
 
 module Users
   class ViewingPartiesController < ApplicationController
-    before_action :load_host
+    before_action :current_user, only: :new
     before_action :load_movie
     before_action :validate_duration, only: [:create]
 
     def new
-      @all_users = User.where.not(id: @host)
+      redirect_to movie_path(params[:movie_id]) and flash[:alert] = "You must be logged in to create a viewing party." unless current_user
+      @all_users = User.where.not(id: current_user)
     end
 
     def create
@@ -18,19 +19,15 @@ module Users
           viewing_party.users << User.find(user_id)
         end
 
-        redirect_to user_path(@host.id)
+        redirect_to dashboard_path
       else
-        redirect_to new_user_movie_viewing_party_path(@host.id, @movie.id)
+        redirect_to new_movie_viewing_party_path(@movie.id)
 
         flash[:alert] = viewing_party.errors.full_messages.to_sentence
       end
     end
 
     private
-
-    def load_host
-      @host ||= User.find(params[:user_id])
-    end
 
     def load_movie
       @movie ||= MovieFacade.new(params[:movie_id]).movie
@@ -40,7 +37,7 @@ module Users
       return unless viewing_party_params[:duration].to_i < @movie.runtime
 
       flash[:alert] = "Viewing Party duration must be greater than or equal to movie runtime which is #{@movie.runtime}"
-      redirect_to new_user_movie_viewing_party_path(@host.id, @movie.id)
+      redirect_to new_movie_viewing_party_path(@movie.id)
     end
 
     def date

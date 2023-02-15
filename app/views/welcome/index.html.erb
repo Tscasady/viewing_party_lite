@@ -1,17 +1,22 @@
-<nav><%= link_to "Login", '/login' %></nav>
+<% if current_user %>
+  <nav><%= link_to "Log Out", '/logout', method: :post %></nav>
+<% else %>
+  <nav><%= link_to "Login", '/login' %></nav>
+  <center>
+    <%= button_to "Create a New User", register_path, method: :get %>
+  </center>
+<% end %>
 
-<center>
-  <%= button_to "Create a New User", register_path, method: :get %>
-</center>
-
+<% if current_user %>
 <center>
   <body>
     <h2>Existing Users</h2>
     <div class="users">
       <% @users.each do |user| %>
       <section id="user-<%= user.id %>">
-        <%= link_to user.email, user_path(user) %> </section>
+        <%= user.email %> </section>
       <% end %>
     </div>  
   </body>
 </center>
+<% end %>

@@ -2,6 +2,7 @@
 
 module Users
   class MoviesController < ApplicationController
+    before_action :current_user, only: [:index, :show]
     def index
       @search_term = params[:title_search]
 
@@ -10,12 +11,10 @@ module Users
                 else
                   MovieFacade.new.get_top_movies
                 end
-      @user = User.find(params[:user_id])
     end
 
     def show
       @movie = MovieFacade.new(params[:id]).movie
-      @user = User.find(params[:user_id])
     end
   end
 end

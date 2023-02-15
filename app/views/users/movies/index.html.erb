@@ -5,14 +5,14 @@
 <% end %>
 
 <center>
-  <%= button_to "Discover Page", discover_user_path(@user), method: :get %>
+  <%= button_to "Discover Page", discover_path, method: :get %>
 </center>
 
 <div style="margin:auto;width:40%;" class="movies">
     <% @movies.each do |movie| %>
      <section id="movie-<%= movie.id %>">
        <div style="text-align:left;">
-        <%= link_to movie.title, user_movie_path(@user, movie.id) %> 
+        <%= link_to movie.title, movie_path(movie.id) %> 
        </div>
        <div style="text-align:right;">
         Vote Average: <%= movie.vote_average %>

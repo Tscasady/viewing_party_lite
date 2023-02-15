@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class MovieFacade
-  # add user?
   def initialize(query = '')
     @movie_service = MovieService.new(query)
   end
