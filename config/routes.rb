@@ -12,4 +12,7 @@ Rails.application.routes.draw do
   resources :movies, only: %i[index show], controller: 'users/movies' do
     resources :viewing_parties, only: %i[new create], controller: 'users/viewing_parties'
   end
+  namespace :admin do
+    resources :users, only: [:show]
+  end
 end
