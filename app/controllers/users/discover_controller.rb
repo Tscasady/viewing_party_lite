@@ -2,8 +2,8 @@
 
 module Users
   class DiscoverController < ApplicationController
-    def index
-      @user = User.find(params[:id])
-    end
+    before_action :current_user, only: :index
+
+    def index; end
   end
 end

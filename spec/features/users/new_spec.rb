@@ -8,7 +8,7 @@ RSpec.describe 'User Registration Page', type: :feature do
   end
 
   describe 'user registration form - happy path' do
-    it 'displays a form to fill in users name, unique email, and password, redirects to user dashdoard page' do
+    it 'displays a form to fill in users name, unique email, and password, redirects to user dashboard page' do
       fill_in('Name', with: 'River')
       fill_in('Email', with: 'river@gmail.com')
       fill_in('Password', with: 'password123')
@@ -17,7 +17,7 @@ RSpec.describe 'User Registration Page', type: :feature do
       click_button 'Create New User'
 
       user = User.last
-      expect(current_path).to eq(user_path(user))
+      expect(current_path).to eq(dashboard_path)
       expect(User.last.name).to eq('River')
     end
   end

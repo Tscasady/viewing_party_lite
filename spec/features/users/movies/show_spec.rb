@@ -7,9 +7,10 @@ RSpec.describe 'Movie Details', type: :feature do
 
   before :each do
     movie_id = 14
-
+ 
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     @movie = MovieFacade.new(movie_id).movie
-    visit user_movie_path(user, movie_id)
+    visit movie_path(movie_id)
   end
 
   describe 'the movie show page' do
@@ -17,14 +18,14 @@ RSpec.describe 'Movie Details', type: :feature do
       it 'has a button to create a viewing party' do
         click_button "Create Viewing Party for #{@movie.title}"
 
-        expect(current_path).to eq new_user_movie_viewing_party_path(user, @movie.id)
+        expect(current_path).to eq new_movie_viewing_party_path(@movie.id)
       end
 
       it 'has a button to return to the Discover Page' do
         expect(page).to have_button 'Discover'
         click_button 'Discover'
 
-        expect(current_path).to eq discover_user_path(user)
+        expect(current_path).to eq discover_path
       end
     end
 

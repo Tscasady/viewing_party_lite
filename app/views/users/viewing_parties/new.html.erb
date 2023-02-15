@@ -2,13 +2,13 @@
   Create a Movie Party for <%= @movie.title %>
 </center>
 <center>
-  <%= button_to "Discover Page", discover_user_path(@host), method: :get %>
+  <%= button_to "Discover Page", discover_path, method: :get %>
 </center>
 
 <center>
   <section class="new_viewing_party_form">
-    <%= form_with url: user_movie_viewing_parties_path(@host.id, @movie.id), method: :post, local: true do |f| %>
-      <%= f.hidden_field :host_id, value: @host.id %>
+    <%= form_with url: movie_viewing_parties_path(@movie.id), method: :post, local: true do |f| %>
+      <%= f.hidden_field :host_id, value: current_user.id %>
       <%= f.label :movie, "Movie Title" %>
       <%= f.text_field :movie, value: @movie.title, disabled: true %>
       <br>

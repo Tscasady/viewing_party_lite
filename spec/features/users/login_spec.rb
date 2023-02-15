@@ -13,7 +13,7 @@ RSpec.describe "User Login page", type: :feature do
 
         click_button 'Log In'
 
-        expect(current_path).to eq(user_path(user))
+        expect(current_path).to eq(dashboard_path)
       end
     end
 
